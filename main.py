@@ -1,23 +1,46 @@
 # Skyriaus darbuotojai
+import csv
 
+# employees = [
+#     [
+#         'Lukas K.', 35, 3000, 1, 'vyras'
+#      ],
+#     [
+#         'Edita B.', 38, 1500, 0.5, 'moteris'
+#     ],
+#     [
+#         'Laura U.', 45, 2500, 1, 'moteris'
+#     ],
+#     [
+#         'Arina V.', 28, 2200, 1, 'moteris'
+#     ],
+#     [
+#         'Tautvydas V.', 30, 1800, 0.75, 'vyras'
+#     ]
+# ]
 
-employees = [
-    [
-        'Lukas K.', 35, 3000, 1, 'vyras'
-     ],
-    [
-        'Edita B.', 38, 1500, 0.5, 'moteris'
-    ],
-    [
-        'Laura U.', 45, 2500, 1, 'moteris'
-    ],
-    [
-        'Arina V.', 28, 2200, 1, 'moteris'
-    ],
-    [
-        'Tautvydas V.', 30, 1800, 0.75, 'vyras'
-    ]
-]
+file_path = 'employees.csv'
+def loadEmployees():
+    employees = []
+    with open(file_path, mode = 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            empl = [row[0],
+                    row[1],
+                    row[2],
+                    row[3],
+                    row[4]
+                    ]
+            employees.append(empl)
+        return employees
+
+employees = loadEmployees()
+
+def saveEmployees(emp):
+    with open(file_path, mode = 'a', newline = '') as file:
+        writer = csv.writer(file)
+        for emp in employees:
+            writer.writerow([emp[0], emp[1], emp[2], emp[3], emp[4]])
 
 def printInfo():
     print('------------------------------------------------------')
@@ -52,6 +75,7 @@ def addEmployees():
     print('Darbuotojo lytis')
     empGender = input()
     employees.append([empName, empAge, empSalary, empEmployment, empGender])
+    saveEmployees(employees)
 
 def editEmployees():
     print('Įveskite darbuotojo eilės numerį, kurio informaciją norite redaguoti')
@@ -97,13 +121,13 @@ while True:
             print('1. Pagal užimtumą')
             print('2. Pagal lytį')
             filterNum = int(input())
-            if filterNum == 1:
-                print('Įveskite eteto dydį("PL" - pilnas / "NPL" - nepilnas / "DPL" - daugiau negu pilnas)')
-                flEmpl = input()
-                PL = 1
-                # tempList0 =[]
-                for emp in employees:
-                    if emp[3] == flEmpl:
+            # if filterNum == 1:
+            #     print('Įveskite eteto dydį("PL" - pilnas / "NPL" - nepilnas / "DPL" - daugiau negu pilnas)')
+            #     flEmpl = input()
+            #     PL = 1
+            #     # tempList0 =[]
+            #     for emp in employees:
+            #         if emp[3] == flEmpl:
 
             if filterNum == 2:
                 print('Įveskite lytį (vyras/moteris)')
